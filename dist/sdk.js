@@ -77,9 +77,10 @@ export class InstantlySDK {
     }
     async getCampaignAnalytics(id) {
         const config = {
-            url: `${this.apiUrl}/campaigns/${id}/analytics`,
+            url: `${this.apiUrl}/campaigns/analytics`,
             method: 'GET',
             headers: { Authorization: `Bearer ${this.apiKey}` },
+            params: { id },
         };
         return (await this.retryRequest(config)).data;
     }
