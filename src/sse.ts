@@ -1,3 +1,4 @@
+// SSE endpoint for Claude Desktop integration. Streams real-time events to connected clients.
 import { Request, Response } from 'express';
 
 interface SSEClient {
@@ -30,5 +31,5 @@ export function sseHandler(req: Request, res: Response) {
 
 export function broadcastEvent(event: string, data: any) {
   const payload = `event: ${event}\ndata: ${JSON.stringify(data)}\n\n`;
-  clients.forEach(c => c.res.write(payload));
+  clients.forEach(client => client.res.write(payload));
 } 

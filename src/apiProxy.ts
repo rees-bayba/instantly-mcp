@@ -1,37 +1,54 @@
 import { Router } from 'express';
-import { createProxyMiddleware } from 'http-proxy-middleware';
+import { createProxyMiddleware, responseInterceptor } from 'http-proxy-middleware';
+import axios, { AxiosRequestConfig } from 'axios';
 
 const INSTANTLY_API_KEY = process.env.INSTANTLY_API_KEY;
-const INSTANTLY_API_URL = 'https://api.instantly.ai/api/v2';
+const INSTANTLY_API_URL = process.env.INSTANTLY_API_URL || 'https://api.instantly.ai/api/v2';
+const MAX_ATTEMPTS = parseInt(process.env.INSTANTLY_RETRY_MAX_ATTEMPTS || '3', 10);
+const INITIAL_DELAY = parseInt(process.env.INSTANTLY_RETRY_INITIAL_DELAY || '1000', 10);
+const MAX_DELAY = parseInt(process.env.INSTANTLY_RETRY_MAX_DELAY || '10000', 10);
+const BACKOFF_FACTOR = parseFloat(process.env.INSTANTLY_RETRY_BACKOFF_FACTOR || '2');
 
 const apiProxy = Router();
 
-apiProxy.use(
-  '/',
-  createProxyMiddleware({
-    target: INSTANTLY_API_URL,
-    changeOrigin: true,
-    pathRewrite: {
-      '^/api': '',
-    },
-    onProxyReq: (proxyReq, req, res) => {
-      console.log('Proxying request:', req.method, req.originalUrl);
-      if (INSTANTLY_API_KEY) {
-        proxyReq.setHeader('Authorization', `Bearer ${INSTANTLY_API_KEY}`);
-        console.log('Using Instantly API Key:', INSTANTLY_API_KEY.slice(0, 6) + '...');
-      } else {
-        console.log('No Instantly API Key set!');
-      }
-    },
-    onError: (err, req, res) => {
-      console.error('Proxy error:', err);
-      if (res.writeHead) {
-        res.writeHead(500, { 'Content-Type': 'application/json' });
-      }
-      res.end(JSON.stringify({ error: 'Proxy error', details: err.message }));
-    },
-    logLevel: 'debug',
-  })
-);
+async function retryRequest(config: AxiosRequestConfig, attempt = 1, delay = INITIAL_DELAY): Promise<any> {
+  try {
+    return await axios(config);
+  } catch (err: any) {
+    if (attempt >= MAX_ATTEMPTS) throw err;
+    const status = err.response?.status;
+    if (status === 429 || status === 500 || status === 502 || status === 503 || status === 504) {
+      const nextDelay = Math.min(delay * BACKOFF_FACTOR, MAX_DELAY);
+      console.warn(`Retrying Instantly API request (attempt ${attempt + 1}/${MAX_ATTEMPTS}) after ${delay}ms...`);
+      await new Promise(res => setTimeout(res, delay));
+      return retryRequest(config, attempt + 1, nextDelay);
+    }
+    throw err;
+  }
+}
+
+apiProxy.use('/', async (req, res, next) => {
+  const url = INSTANTLY_API_URL + req.originalUrl.replace(/^\/api/, '');
+  const method = req.method.toLowerCase();
+  const headers = {
+    ...req.headers,
+    authorization: `Bearer ${INSTANTLY_API_KEY}`,
+  };
+  try {
+    const config: AxiosRequestConfig = {
+      url,
+      method,
+      headers,
+      data: req.body,
+      params: req.query,
+      validateStatus: () => true,
+    };
+    const response = await retryRequest(config);
+    res.status(response.status).set(response.headers).send(response.data);
+  } catch (err: any) {
+    console.error('Proxy error:', err.message);
+    res.status(err.response?.status || 500).json({ error: 'Proxy error', details: err.message });
+  }
+});
 
 export default apiProxy; 
