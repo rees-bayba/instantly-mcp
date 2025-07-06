@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { createProxyMiddleware, responseInterceptor } from 'http-proxy-middleware';
-import axios, { AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 
 const INSTANTLY_API_KEY = process.env.INSTANTLY_API_KEY;
 const INSTANTLY_API_URL = process.env.INSTANTLY_API_URL || 'https://api.instantly.ai/api/v2';
@@ -11,7 +11,7 @@ const BACKOFF_FACTOR = parseFloat(process.env.INSTANTLY_RETRY_BACKOFF_FACTOR || 
 
 const apiProxy = Router();
 
-async function retryRequest(config: AxiosRequestConfig, attempt = 1, delay = INITIAL_DELAY): Promise<any> {
+async function retryRequest(config: any, attempt = 1, delay = INITIAL_DELAY): Promise<any> {
   try {
     return await axios(config);
   } catch (err: any) {
@@ -35,7 +35,7 @@ apiProxy.use('/', async (req, res, next) => {
     authorization: `Bearer ${INSTANTLY_API_KEY}`,
   };
   try {
-    const config: AxiosRequestConfig = {
+    const config: any = {
       url,
       method,
       headers,
