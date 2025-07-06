@@ -33,7 +33,7 @@ function getSDK(): InstantlySDK {
   }
   return new InstantlySDK(
     apiKey,
-    process.env.INSTANTLY_API_URL || 'https://api.instantly.ai/api/v1'
+    process.env.INSTANTLY_API_URL || 'https://api.instantly.ai/api/v2'
   );
 }
 

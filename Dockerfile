@@ -19,5 +19,5 @@ RUN npm run build
 # Expose port
 EXPOSE 3000
 
-# Start the app
-CMD ["node", "dist/server.js"] 
+# Start the MCP SSE server
+CMD ["node", "start-sse-server.cjs"] 

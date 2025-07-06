@@ -108,7 +108,7 @@ Or connect to our hosted version:
 INSTANTLY_API_KEY=your_instantly_api_key_here
 
 # Optional
-INSTANTLY_API_URL=https://api.instantly.ai/api/v1
+INSTANTLY_API_URL=https://api.instantly.ai/api/v2
 PORT=3000
 
 # Retry Configuration

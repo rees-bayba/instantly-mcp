@@ -17,7 +17,7 @@ function getSDK() {
     if (!apiKey) {
         throw new McpError(ErrorCode.InvalidParams, 'INSTANTLY_API_KEY environment variable is required');
     }
-    return new InstantlySDK(apiKey, process.env.INSTANTLY_API_URL || 'https://api.instantly.ai/api/v1');
+    return new InstantlySDK(apiKey, process.env.INSTANTLY_API_URL || 'https://api.instantly.ai/api/v2');
 }
 // List available tools
 server.setRequestHandler(ListToolsRequestSchema, async () => {
