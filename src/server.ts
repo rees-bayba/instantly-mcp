@@ -31,6 +31,7 @@ app.post('/webhook', webhookHandler);
 
 // SSE endpoint
 app.get('/events', sseHandler);
+app.get('/sse', sseHandler);
 
 // Tool-based endpoints
 app.post('/tools/list_campaigns', listCampaignsHandler);
