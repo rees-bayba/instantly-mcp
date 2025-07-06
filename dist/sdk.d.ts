@@ -14,5 +14,17 @@ export declare class InstantlySDK {
     listLeads(params?: Record<string, any>): Promise<any>;
     createLead(data: Record<string, any>): Promise<any>;
     listLeadLists(params?: Record<string, any>): Promise<any>;
+    createLeadList(data: Record<string, any>): Promise<any>;
+    updateCampaign(id: string, data: Record<string, any>): Promise<any>;
+    activateCampaign(id: string): Promise<any>;
+    createAccount(data: Record<string, any>): Promise<any>;
+    updateAccount(email: string, data: Record<string, any>): Promise<any>;
+    getWarmupAnalytics(email: string): Promise<any>;
+    getCampaignAnalyticsOverview(params?: Record<string, any>): Promise<any>;
+    listEmails(params?: Record<string, any>): Promise<any>;
+    moveLeads(data: Record<string, any>): Promise<any>;
+    updateLead(id: string, data: Record<string, any>): Promise<any>;
+    listApiKeys(params?: Record<string, any>): Promise<any>;
+    createApiKey(data: Record<string, any>): Promise<any>;
 }
 //# sourceMappingURL=sdk.d.ts.map

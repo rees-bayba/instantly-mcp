@@ -117,5 +117,99 @@ export class InstantlySDK {
     async listLeadLists(params = {}) {
         return this.paginate('/lead-lists', params);
     }
+    async createLeadList(data) {
+        const config = {
+            url: `${this.apiUrl}/lead-lists`,
+            method: 'POST',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+            data,
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async updateCampaign(id, data) {
+        const config = {
+            url: `${this.apiUrl}/campaigns/${id}`,
+            method: 'PATCH',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+            data,
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async activateCampaign(id) {
+        const config = {
+            url: `${this.apiUrl}/campaigns/${id}/activate`,
+            method: 'POST',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async createAccount(data) {
+        const config = {
+            url: `${this.apiUrl}/accounts`,
+            method: 'POST',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+            data,
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async updateAccount(email, data) {
+        const config = {
+            url: `${this.apiUrl}/accounts/${email}`,
+            method: 'PATCH',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+            data,
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async getWarmupAnalytics(email) {
+        const config = {
+            url: `${this.apiUrl}/accounts/${email}/warmup-analytics`,
+            method: 'GET',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async getCampaignAnalyticsOverview(params = {}) {
+        const config = {
+            url: `${this.apiUrl}/campaigns/analytics/overview`,
+            method: 'GET',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+            params,
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async listEmails(params = {}) {
+        return this.paginate('/emails', params);
+    }
+    async moveLeads(data) {
+        const config = {
+            url: `${this.apiUrl}/leads/move`,
+            method: 'POST',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+            data,
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async updateLead(id, data) {
+        const config = {
+            url: `${this.apiUrl}/leads/${id}`,
+            method: 'PATCH',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+            data,
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async listApiKeys(params = {}) {
+        return this.paginate('/api-keys', params);
+    }
+    async createApiKey(data) {
+        const config = {
+            url: `${this.apiUrl}/api-keys`,
+            method: 'POST',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+            data,
+        };
+        return (await this.retryRequest(config)).data;
+    }
 }
 //# sourceMappingURL=sdk.js.map

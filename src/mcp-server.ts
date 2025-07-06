@@ -234,6 +234,281 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
           },
         },
       },
+      {
+        name: 'create_lead_list',
+        description: 'Create a new lead list',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            name: {
+              type: 'string',
+              description: 'Lead list name',
+            },
+            description: {
+              type: 'string',
+              description: 'Lead list description',
+            },
+          },
+          required: ['name'],
+        },
+      },
+      {
+        name: 'update_campaign',
+        description: 'Update an existing campaign',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            campaignId: {
+              type: 'string',
+              description: 'Campaign ID to update',
+            },
+            name: {
+              type: 'string',
+              description: 'Campaign name',
+            },
+            subject: {
+              type: 'string',
+              description: 'Email subject line',
+            },
+            body: {
+              type: 'string',
+              description: 'Email body content',
+            },
+            status: {
+              type: 'string',
+              description: 'Campaign status',
+            },
+          },
+          required: ['campaignId'],
+        },
+      },
+      {
+        name: 'activate_campaign',
+        description: 'Activate a campaign',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            campaignId: {
+              type: 'string',
+              description: 'Campaign ID to activate',
+            },
+          },
+          required: ['campaignId'],
+        },
+      },
+      {
+        name: 'create_account',
+        description: 'Create a new sending account',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            email: {
+              type: 'string',
+              description: 'Email address for the account',
+            },
+            password: {
+              type: 'string',
+              description: 'Password for the email account',
+            },
+            smtp_host: {
+              type: 'string',
+              description: 'SMTP host',
+            },
+            smtp_port: {
+              type: 'number',
+              description: 'SMTP port',
+            },
+            smtp_username: {
+              type: 'string',
+              description: 'SMTP username',
+            },
+            smtp_password: {
+              type: 'string',
+              description: 'SMTP password',
+            },
+          },
+          required: ['email'],
+        },
+      },
+      {
+        name: 'update_account',
+        description: 'Update a sending account',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            email: {
+              type: 'string',
+              description: 'Email address of the account to update',
+            },
+            smtp_host: {
+              type: 'string',
+              description: 'SMTP host',
+            },
+            smtp_port: {
+              type: 'number',
+              description: 'SMTP port',
+            },
+            smtp_username: {
+              type: 'string',
+              description: 'SMTP username',
+            },
+            smtp_password: {
+              type: 'string',
+              description: 'SMTP password',
+            },
+          },
+          required: ['email'],
+        },
+      },
+      {
+        name: 'get_warmup_analytics',
+        description: 'Get warmup analytics for an account',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            email: {
+              type: 'string',
+              description: 'Email address of the account',
+            },
+          },
+          required: ['email'],
+        },
+      },
+      {
+        name: 'get_campaign_analytics_overview',
+        description: 'Get analytics overview for all campaigns',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            dateFrom: {
+              type: 'string',
+              description: 'Start date for analytics (YYYY-MM-DD)',
+            },
+            dateTo: {
+              type: 'string',
+              description: 'End date for analytics (YYYY-MM-DD)',
+            },
+          },
+        },
+      },
+      {
+        name: 'list_emails',
+        description: 'List emails with filters and pagination',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            campaignId: {
+              type: 'string',
+              description: 'Filter by campaign ID',
+            },
+            status: {
+              type: 'string',
+              description: 'Filter by email status',
+            },
+            limit: {
+              type: 'number',
+              description: 'Maximum number of emails to return',
+            },
+            offset: {
+              type: 'number',
+              description: 'Number of emails to skip for pagination',
+            },
+          },
+        },
+      },
+      {
+        name: 'move_leads',
+        description: 'Move leads between campaigns or lists',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            leadIds: {
+              type: 'array',
+              items: { type: 'string' },
+              description: 'Array of lead IDs to move',
+            },
+            targetCampaignId: {
+              type: 'string',
+              description: 'Target campaign ID',
+            },
+            targetListId: {
+              type: 'string',
+              description: 'Target list ID',
+            },
+          },
+          required: ['leadIds'],
+        },
+      },
+      {
+        name: 'update_lead',
+        description: 'Update a lead',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            leadId: {
+              type: 'string',
+              description: 'Lead ID to update',
+            },
+            firstName: {
+              type: 'string',
+              description: 'First name',
+            },
+            lastName: {
+              type: 'string',
+              description: 'Last name',
+            },
+            email: {
+              type: 'string',
+              description: 'Email address',
+            },
+            companyName: {
+              type: 'string',
+              description: 'Company name',
+            },
+            customFields: {
+              type: 'object',
+              description: 'Custom fields for the lead',
+            },
+          },
+          required: ['leadId'],
+        },
+      },
+      {
+        name: 'list_api_keys',
+        description: 'List all API keys',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            limit: {
+              type: 'number',
+              description: 'Maximum number of API keys to return',
+            },
+            offset: {
+              type: 'number',
+              description: 'Number of API keys to skip for pagination',
+            },
+          },
+        },
+      },
+      {
+        name: 'create_api_key',
+        description: 'Create a new API key',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            name: {
+              type: 'string',
+              description: 'API key name',
+            },
+            permissions: {
+              type: 'array',
+              items: { type: 'string' },
+              description: 'Array of permissions for the API key',
+            },
+          },
+          required: ['name'],
+        },
+      },
     ],
   };
 });
@@ -362,6 +637,168 @@ server.setRequestHandler(CallToolRequestSchema, async (request: CallToolRequest)
 
       case 'list_lead_lists': {
         const result = await sdk.listLeadLists(args || {});
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      }
+
+      case 'create_lead_list': {
+        const result = await sdk.createLeadList(args || {});
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      }
+
+      case 'update_campaign': {
+        if (!args?.campaignId) {
+          throw new McpError(ErrorCode.InvalidParams, 'campaignId is required');
+        }
+        const { campaignId, ...updateData } = args;
+        const result = await sdk.updateCampaign(campaignId as string, updateData);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      }
+
+      case 'activate_campaign': {
+        if (!args?.campaignId) {
+          throw new McpError(ErrorCode.InvalidParams, 'campaignId is required');
+        }
+        const result = await sdk.activateCampaign(args.campaignId as string);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      }
+
+      case 'create_account': {
+        const result = await sdk.createAccount(args || {});
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      }
+
+      case 'update_account': {
+        if (!args?.email) {
+          throw new McpError(ErrorCode.InvalidParams, 'email is required');
+        }
+        const { email, ...updateData } = args;
+        const result = await sdk.updateAccount(email as string, updateData);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      }
+
+      case 'get_warmup_analytics': {
+        if (!args?.email) {
+          throw new McpError(ErrorCode.InvalidParams, 'email is required');
+        }
+        const result = await sdk.getWarmupAnalytics(args.email as string);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      }
+
+      case 'get_campaign_analytics_overview': {
+        const result = await sdk.getCampaignAnalyticsOverview(args || {});
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      }
+
+      case 'list_emails': {
+        const result = await sdk.listEmails(args || {});
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      }
+
+      case 'move_leads': {
+        const result = await sdk.moveLeads(args || {});
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      }
+
+      case 'update_lead': {
+        if (!args?.leadId) {
+          throw new McpError(ErrorCode.InvalidParams, 'leadId is required');
+        }
+        const { leadId, ...updateData } = args;
+        const result = await sdk.updateLead(leadId as string, updateData);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      }
+
+      case 'list_api_keys': {
+        const result = await sdk.listApiKeys(args || {});
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      }
+
+      case 'create_api_key': {
+        const result = await sdk.createApiKey(args || {});
         return {
           content: [
             {
