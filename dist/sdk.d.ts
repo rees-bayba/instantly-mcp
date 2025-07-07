@@ -26,5 +26,36 @@ export declare class InstantlySDK {
     updateLead(id: string, data: Record<string, any>): Promise<any>;
     listApiKeys(params?: Record<string, any>): Promise<any>;
     createApiKey(data: Record<string, any>): Promise<any>;
+    replyToEmail(data: Record<string, any>): Promise<any>;
+    getEmail(id: string): Promise<any>;
+    updateEmail(id: string, data: Record<string, any>): Promise<any>;
+    deleteEmail(id: string): Promise<any>;
+    countUnreadEmails(): Promise<any>;
+    markThreadAsRead(threadId: string): Promise<any>;
+    getDailyCampaignAnalytics(params?: Record<string, any>): Promise<any>;
+    getCampaignStepsAnalytics(params?: Record<string, any>): Promise<any>;
+    createSubsequence(data: Record<string, any>): Promise<any>;
+    listSubsequences(params?: Record<string, any>): Promise<any>;
+    getSubsequence(id: string): Promise<any>;
+    updateSubsequence(id: string, data: Record<string, any>): Promise<any>;
+    deleteSubsequence(id: string): Promise<any>;
+    duplicateSubsequence(id: string): Promise<any>;
+    pauseSubsequence(id: string): Promise<any>;
+    resumeSubsequence(id: string): Promise<any>;
+    getLead(id: string): Promise<any>;
+    deleteLead(id: string): Promise<any>;
+    getLeadList(id: string): Promise<any>;
+    updateLeadList(id: string, data: Record<string, any>): Promise<any>;
+    deleteLeadList(id: string): Promise<any>;
+    pauseCampaign(id: string): Promise<any>;
+    deleteCampaign(id: string): Promise<any>;
+    getAccount(email: string): Promise<any>;
+    deleteAccount(email: string): Promise<any>;
+    pauseAccount(email: string): Promise<any>;
+    resumeAccount(email: string): Promise<any>;
+    mergeLeads(data: Record<string, any>): Promise<any>;
+    updateLeadInterestStatus(data: Record<string, any>): Promise<any>;
+    removeLeadFromSubsequence(data: Record<string, any>): Promise<any>;
+    deleteApiKey(id: string): Promise<any>;
 }
 //# sourceMappingURL=sdk.d.ts.map

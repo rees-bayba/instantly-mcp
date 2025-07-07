@@ -103,7 +103,13 @@ export class InstantlySDK {
         return (await this.retryRequest(config)).data;
     }
     async listLeads(params = {}) {
-        return this.paginate('/leads', params);
+        const config = {
+            url: `${this.apiUrl}/leads/list`,
+            method: 'POST',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+            data: params,
+        };
+        return (await this.retryRequest(config)).data;
     }
     async createLead(data) {
         const config = {
@@ -208,6 +214,265 @@ export class InstantlySDK {
             method: 'POST',
             headers: { Authorization: `Bearer ${this.apiKey}` },
             data,
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    // Email Management Tools
+    async replyToEmail(data) {
+        const config = {
+            url: `${this.apiUrl}/emails/reply`,
+            method: 'POST',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+            data,
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async getEmail(id) {
+        const config = {
+            url: `${this.apiUrl}/emails/${id}`,
+            method: 'GET',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async updateEmail(id, data) {
+        const config = {
+            url: `${this.apiUrl}/emails/${id}`,
+            method: 'PATCH',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+            data,
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async deleteEmail(id) {
+        const config = {
+            url: `${this.apiUrl}/emails/${id}`,
+            method: 'DELETE',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async countUnreadEmails() {
+        const config = {
+            url: `${this.apiUrl}/emails/unread/count`,
+            method: 'GET',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async markThreadAsRead(threadId) {
+        const config = {
+            url: `${this.apiUrl}/emails/threads/${threadId}/mark-as-read`,
+            method: 'POST',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    // Advanced Analytics Tools
+    async getDailyCampaignAnalytics(params = {}) {
+        const config = {
+            url: `${this.apiUrl}/campaigns/analytics/daily`,
+            method: 'GET',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+            params,
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async getCampaignStepsAnalytics(params = {}) {
+        const config = {
+            url: `${this.apiUrl}/campaigns/analytics/steps`,
+            method: 'GET',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+            params,
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    // Subsequence Management Tools
+    async createSubsequence(data) {
+        const config = {
+            url: `${this.apiUrl}/subsequences`,
+            method: 'POST',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+            data,
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async listSubsequences(params = {}) {
+        return this.paginate('/subsequences', params);
+    }
+    async getSubsequence(id) {
+        const config = {
+            url: `${this.apiUrl}/subsequences/${id}`,
+            method: 'GET',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async updateSubsequence(id, data) {
+        const config = {
+            url: `${this.apiUrl}/subsequences/${id}`,
+            method: 'PATCH',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+            data,
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async deleteSubsequence(id) {
+        const config = {
+            url: `${this.apiUrl}/subsequences/${id}`,
+            method: 'DELETE',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async duplicateSubsequence(id) {
+        const config = {
+            url: `${this.apiUrl}/subsequences/${id}/duplicate`,
+            method: 'POST',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async pauseSubsequence(id) {
+        const config = {
+            url: `${this.apiUrl}/subsequences/${id}/pause`,
+            method: 'POST',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async resumeSubsequence(id) {
+        const config = {
+            url: `${this.apiUrl}/subsequences/${id}/resume`,
+            method: 'POST',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    // Comprehensive Data Retrieval Tools
+    async getLead(id) {
+        const config = {
+            url: `${this.apiUrl}/leads/${id}`,
+            method: 'GET',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async deleteLead(id) {
+        const config = {
+            url: `${this.apiUrl}/leads/${id}`,
+            method: 'DELETE',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async getLeadList(id) {
+        const config = {
+            url: `${this.apiUrl}/lead-lists/${id}`,
+            method: 'GET',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async updateLeadList(id, data) {
+        const config = {
+            url: `${this.apiUrl}/lead-lists/${id}`,
+            method: 'PATCH',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+            data,
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async deleteLeadList(id) {
+        const config = {
+            url: `${this.apiUrl}/lead-lists/${id}`,
+            method: 'DELETE',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async pauseCampaign(id) {
+        const config = {
+            url: `${this.apiUrl}/campaigns/${id}/pause`,
+            method: 'POST',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async deleteCampaign(id) {
+        const config = {
+            url: `${this.apiUrl}/campaigns/${id}`,
+            method: 'DELETE',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async getAccount(email) {
+        const config = {
+            url: `${this.apiUrl}/accounts/${email}`,
+            method: 'GET',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async deleteAccount(email) {
+        const config = {
+            url: `${this.apiUrl}/accounts/${email}`,
+            method: 'DELETE',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async pauseAccount(email) {
+        const config = {
+            url: `${this.apiUrl}/accounts/${email}/pause`,
+            method: 'POST',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async resumeAccount(email) {
+        const config = {
+            url: `${this.apiUrl}/accounts/${email}/resume`,
+            method: 'POST',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    // Additional Lead Management
+    async mergeLeads(data) {
+        const config = {
+            url: `${this.apiUrl}/leads/merge`,
+            method: 'POST',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+            data,
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async updateLeadInterestStatus(data) {
+        const config = {
+            url: `${this.apiUrl}/leads/update-interest-status`,
+            method: 'POST',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+            data,
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    async removeLeadFromSubsequence(data) {
+        const config = {
+            url: `${this.apiUrl}/leads/subsequence/remove`,
+            method: 'POST',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+            data,
+        };
+        return (await this.retryRequest(config)).data;
+    }
+    // API Key Management
+    async deleteApiKey(id) {
+        const config = {
+            url: `${this.apiUrl}/api-keys/${id}`,
+            method: 'DELETE',
+            headers: { Authorization: `Bearer ${this.apiKey}` },
         };
         return (await this.retryRequest(config)).data;
     }
