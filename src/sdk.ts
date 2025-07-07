@@ -113,7 +113,13 @@ export class InstantlySDK {
   }
 
   async listLeads(params: Record<string, any> = {}): Promise<any> {
-    return this.paginate('/leads', params);
+    const config: any = {
+      url: `${this.apiUrl}/leads/list`,
+      method: 'POST',
+      headers: { Authorization: `Bearer ${this.apiKey}` },
+      data: params,
+    };
+    return (await this.retryRequest(config)).data;
   }
 
   async createLead(data: Record<string, any>): Promise<any> {

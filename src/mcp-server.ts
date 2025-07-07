@@ -171,13 +171,13 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       },
       {
         name: 'list_leads',
-        description: 'List leads from a campaign',
+        description: 'List leads with optional filters',
         inputSchema: {
           type: 'object',
           properties: {
             campaignId: {
               type: 'string',
-              description: 'Campaign ID',
+              description: 'Optional: Filter by campaign ID',
             },
             limit: {
               type: 'number',
@@ -188,7 +188,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
               description: 'Number of leads to skip for pagination',
             },
           },
-          required: ['campaignId'],
+          required: [],
         },
       },
       {
