@@ -1,19 +1,90 @@
 # Instantly MCP Server
 
-A production-ready Model Context Protocol (MCP) server for Instantly.ai that provides AI assistants with access to Instantly's email marketing platform through standardized tools and real-time capabilities.
+A comprehensive Model Context Protocol (MCP) server for Instantly.ai that provides AI assistants with complete access to Instantly's email marketing platform through 49 standardized tools and real-time capabilities.
 
-## Features
+## 🚀 Features
 
-- **✅ Proper MCP Implementation**: Built with the official MCP SDK following the Model Context Protocol specification
-- **🌐 SSE Support**: Server-Sent Events for real-time communication with Claude Desktop and other MCP clients
-- **🔧 Tool-Based Architecture**: Each Instantly action is exposed as a named MCP tool for AI/automation compatibility
-- **📡 Real-Time Broadcasting**: SSE streaming for tool results and webhook events
-- **🔄 Bulletproof Retry Logic**: Exponential backoff for rate limiting and transient failures
-- **📄 Comprehensive Pagination**: Handle large datasets efficiently
-- **🚀 Railway Deployment**: One-click deployment to Railway with environment variable configuration
-- **🔐 Environment-Based Configuration**: Secure API key management and customizable settings
+- **✅ Complete Instantly.ai Coverage**: 49 tools covering all major API endpoints
+- **📧 Full Email Workflow**: Send, reply, track, and manage email conversations
+- **📊 Advanced Analytics**: Daily, step-by-step, and overview campaign analytics
+- **🔄 Subsequence Automation**: Create, manage, and optimize follow-up sequences
+- **🎯 Lead Management**: Comprehensive CRUD operations for leads and lists
+- **🌐 SSE Support**: Server-Sent Events for real-time communication
+- **🔧 Tool-Based Architecture**: Each action exposed as standardized MCP tools
+- **🔄 Bulletproof Retry Logic**: Exponential backoff for rate limiting
+- **🚀 Railway Deployment**: Production-ready hosted deployment
+- **🔐 Environment-Based Configuration**: Secure API key management
 
-## Quick Start
+## 🎯 Available Tools (49 Total)
+
+### 📧 Email Management (6 tools)
+- `reply_to_email` - Reply to emails in conversation threads
+- `get_email` - Get detailed email content and metadata
+- `list_emails` - List emails with advanced filtering options
+- `update_email` - Update email properties and status
+- `delete_email` - Delete emails from the system
+- `count_unread_emails` - Count unread emails across accounts
+- `mark_thread_as_read` - Mark entire conversation threads as read
+
+### 🎯 Campaign Management (8 tools)
+- `list_campaigns` - List all campaigns with filtering and pagination
+- `create_campaign` - Create new email campaigns with sequences
+- `get_campaign` - Get detailed campaign information and settings
+- `update_campaign` - Modify existing campaign parameters
+- `activate_campaign` - Start or resume campaign execution
+- `pause_campaign` - Pause active campaigns
+- `delete_campaign` - Remove campaigns from the system
+- `send_email` - Send individual emails through campaigns
+
+### 📊 Advanced Analytics (4 tools)
+- `get_campaign_analytics` - Comprehensive campaign performance metrics
+- `get_campaign_analytics_overview` - High-level analytics across campaigns
+- `get_daily_campaign_analytics` - Day-by-day performance tracking
+- `get_campaign_steps_analytics` - Step-by-step sequence performance analysis
+
+### 🔄 Subsequence Management (8 tools)
+- `create_subsequence` - Create advanced follow-up automation sequences
+- `list_subsequences` - List all subsequences with filtering
+- `get_subsequence` - Get detailed subsequence configuration
+- `update_subsequence` - Modify subsequence settings and steps
+- `delete_subsequence` - Remove subsequences from campaigns
+- `duplicate_subsequence` - Clone successful subsequences
+- `pause_subsequence` - Pause subsequence execution
+- `resume_subsequence` - Resume paused subsequences
+
+### 👥 Lead & List Management (11 tools)
+- `list_leads` - List leads with advanced filtering and pagination
+- `create_lead` - Add new leads to campaigns
+- `get_lead` - Get individual lead details and history
+- `update_lead` - Modify lead information and custom fields
+- `delete_lead` - Remove leads from the system
+- `move_leads` - Transfer leads between campaigns or lists
+- `merge_leads` - Combine duplicate lead records
+- `update_lead_interest_status` - Track lead engagement levels
+- `remove_lead_from_subsequence` - Remove leads from automation sequences
+- `list_lead_lists` - List all lead lists and collections
+- `create_lead_list` - Create new lead lists for organization
+- `get_lead_list` - Get lead list details and statistics
+- `update_lead_list` - Modify lead list properties
+- `delete_lead_list` - Remove lead lists
+
+### 🔧 Account Management (8 tools)
+- `list_accounts` - List all email sending accounts
+- `create_account` - Add new email accounts for sending
+- `get_account` - Get detailed account information and status
+- `update_account` - Modify account settings and configuration
+- `delete_account` - Remove accounts from the workspace
+- `pause_account` - Temporarily disable account sending
+- `resume_account` - Re-enable paused accounts
+- `get_warmup_analytics` - Get account warmup performance data
+
+### 🔑 API & System Management (4 tools)
+- `list_api_keys` - List all API keys and their permissions
+- `create_api_key` - Generate new API keys with custom scopes
+- `delete_api_key` - Revoke API key access
+- `verify_email` - Verify email addresses for deliverability
+
+## 🚀 Quick Start
 
 ### Claude Desktop Configuration
 
@@ -22,9 +93,9 @@ Add this to your `claude_desktop_config.json`:
 ```json
 {
   "mcpServers": {
-    "instantly-mcp-remote": {
+    "instantly-mcp": {
       "command": "npx",
-      "args": ["-y", "mcp-proxy", "--port", "3000", "node", "dist/mcp-server.js"],
+      "args": ["-y", "@modelcontextprotocol/server-stdio", "node", "dist/mcp-server.js"],
       "env": {
         "INSTANTLY_API_KEY": "your_api_key_here"
       }
@@ -62,46 +133,68 @@ Or connect to our hosted version:
    curl -H "Accept: text/event-stream" http://localhost:3000/sse
    ```
 
-## Available Tools
+## 💡 Usage Examples
+
+### Email Workflow Automation
+```
+"Reply to the latest email from john@example.com with a follow-up message"
+"Show me all unread emails from my Q4 campaign"
+"Mark all emails in thread abc123 as read"
+"Get the email content for email ID xyz789"
+```
 
 ### Campaign Management
-- `list_campaigns` - List all campaigns with optional filtering
-- `create_campaign` - Create a new email campaign  
-- `get_campaign` - Get details of a specific campaign
-- `get_campaign_analytics` - Get analytics for a specific campaign
+```
+"Create a new campaign called 'Holiday Sale' with a 3-step sequence"
+"Show me analytics for all campaigns from last month"
+"Pause the 'Summer Outreach' campaign"
+"Get daily performance data for campaign abc123"
+```
 
-### Account Management
-- `list_accounts` - List all email accounts
+### Lead Intelligence
+```
+"Move all interested leads from Campaign A to Campaign B"
+"Update lead john@company.com interest status to 'meeting_booked'"
+"Show me all leads that haven't been contacted yet"
+"Merge duplicate leads for company.com domain"
+```
 
-### Email Operations
-- `send_email` - Send a single email
-- `verify_email` - Verify an email address
+### Subsequence Optimization
+```
+"Create a follow-up subsequence for leads who opened but didn't reply"
+"Duplicate the highest-performing subsequence from Q3"
+"Show me step-by-step analytics for subsequence xyz789"
+"Pause all subsequences with reply rates below 5%"
+```
 
-### Lead Management
-- `list_leads` - List leads from a campaign
-- `create_lead` - Create a new lead
-- `list_lead_lists` - List all lead lists
+### Advanced Analytics
+```
+"Show me daily campaign performance for the last 30 days"
+"Compare step-by-step performance across all active campaigns"
+"Get overview analytics for all campaigns this quarter"
+"Which campaign steps have the highest reply rates?"
+```
 
-## Architecture
+## 🏗️ Architecture
 
 ### MCP Server (`src/mcp-server.ts`)
 - Implements the official Model Context Protocol specification
-- Exposes Instantly API as standardized MCP tools
-- Lazy-loads API credentials when tools are called
-- Handles errors with proper MCP error codes
+- 49 standardized tools covering complete Instantly.ai functionality
+- Proper error handling with MCP error codes
+- Input validation and parameter checking
 
 ### SDK Layer (`src/sdk.ts`)
-- `InstantlySDK` class with retry logic and pagination
-- Exponential backoff for rate limiting
-- Bulletproof pagination for list endpoints
+- Comprehensive `InstantlySDK` class with full API coverage
+- Exponential backoff retry logic for reliability
+- Intelligent pagination for large datasets
 - Environment variable configuration
 
 ### SSE Bridge (`start-sse-server.cjs`)
-- Uses `mcp-proxy` to expose stdio MCP server via SSE
-- Enables Claude Desktop and web client compatibility
-- Handles process management and graceful shutdown
+- Server-Sent Events support for real-time communication
+- Claude Desktop and web client compatibility
+- Process management and graceful shutdown
 
-## Environment Variables
+## 🌐 Environment Variables
 
 ```bash
 # Required
@@ -111,35 +204,33 @@ INSTANTLY_API_KEY=your_instantly_api_key_here
 INSTANTLY_API_URL=https://api.instantly.ai/api/v2
 PORT=3000
 
-# Retry Configuration
+# Retry Configuration (Advanced)
 INSTANTLY_RETRY_MAX_ATTEMPTS=3
 INSTANTLY_RETRY_INITIAL_DELAY=1000
 INSTANTLY_RETRY_MAX_DELAY=10000
 INSTANTLY_RETRY_BACKOFF_FACTOR=2
 ```
 
-## Scripts
+## 📜 Scripts
 
-- `npm run build` - Compile TypeScript
-- `npm run start` - Start SSE server (production)
+- `npm run build` - Compile TypeScript to production-ready JavaScript
+- `npm run start` - Start SSE server (production mode)
 - `npm run start:mcp` - Run MCP server directly (stdio)
-- `npm run start:sse` - Start with SSE support
-- `npm run start:legacy` - Start legacy HTTP server
-- `npm run dev` - Build and start SSE server
-- `npm run dev:legacy` - Build and start legacy server
+- `npm run start:sse` - Start with SSE support for web clients
+- `npm run dev` - Build and start SSE server in development
+- `npm test` - Run test suite (if available)
 
-## Deployment
+## 🚀 Deployment
 
 ### Railway (Recommended)
 
 1. **One-click deploy:**
-   [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/your-template-id)
+   ```bash
+   # Fork the repository, then deploy to Railway
+   # Set INSTANTLY_API_KEY in Railway environment variables
+   ```
 
-2. **Set environment variables:**
-   - `INSTANTLY_API_KEY` - Your Instantly API key
-   - `PORT` - Will be set automatically by Railway
-
-3. **Access your endpoints:**
+2. **Your endpoints:**
    - SSE: `https://your-app.up.railway.app/sse`
    - Health: `https://your-app.up.railway.app/health`
 
@@ -149,64 +240,55 @@ INSTANTLY_RETRY_BACKOFF_FACTOR=2
 # Build the project
 npm run build
 
-# Start the server
+# Start the production server
 npm start
 ```
 
-## Usage Examples
+## 🔧 Advanced Features
 
-### With Claude Desktop
+### Email Thread Management
+- Complete conversation tracking with `thread_id`
+- Reply chain analysis and management
+- Automated thread status updates
 
-Once configured, you can use natural language commands:
+### Campaign Intelligence
+- A/B testing support at step level
+- Performance-based sequence optimization
+- Automated campaign scaling capabilities
 
-```
-"List all my email campaigns"
-"Create a new campaign called 'Summer Sale' with subject 'Get 50% off!'"
-"Show me analytics for campaign ID abc123"
-"Add john@example.com to my lead list"
-```
+### Lead Scoring & Management
+- Interest status tracking and updates
+- Lead lifecycle management
+- Duplicate detection and merging
 
-### Direct MCP Client
+### Analytics & Reporting
+- Real-time campaign performance monitoring
+- Historical trend analysis
+- ROI and conversion tracking
 
-```typescript
-import { Client } from '@modelcontextprotocol/sdk/client/index.js';
-import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
-
-const client = new Client({ name: 'test-client', version: '1.0.0' });
-const transport = new StdioClientTransport({
-  command: 'node',
-  args: ['dist/mcp-server.js']
-});
-
-await client.connect(transport);
-const tools = await client.listTools();
-console.log('Available tools:', tools);
-```
-
-## Troubleshooting
+## 🐛 Troubleshooting
 
 ### Common Issues
 
 1. **"INSTANTLY_API_KEY is required"**
-   - Set the `INSTANTLY_API_KEY` environment variable
-   - Check that your API key is valid and has proper permissions
+   - Set the environment variable in your configuration
+   - Verify your API key has proper permissions
 
-2. **Connection timeout in Claude Desktop**
-   - Verify the SSE endpoint is accessible: `curl -I https://your-app.up.railway.app/sse`
-   - Check Railway logs for startup errors
+2. **Tool execution failures**
+   - Check API key scopes match tool requirements
+   - Verify network connectivity to Instantly.ai
 
-3. **404 errors**
-   - Ensure the server started successfully
-   - Check that you're using the correct endpoint URLs
+3. **SSE connection issues**
+   - Test endpoint: `curl -I https://your-app.up.railway.app/sse`
+   - Check Railway deployment logs
 
 ### Debug Mode
 
-Run with debug logging:
 ```bash
 DEBUG=1 npm run start:sse
 ```
 
-## Contributing
+## 🤝 Contributing
 
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feature/amazing-feature`
@@ -215,12 +297,28 @@ DEBUG=1 npm run start:sse
 5. Push: `git push origin feature/amazing-feature`
 6. Open a Pull Request
 
-## License
+## 📄 License
 
 MIT License - see [LICENSE](LICENSE) for details.
 
-## Related Projects
+## 🔗 Related Projects
 
-- [Model Context Protocol](https://modelcontextprotocol.io/) - The official MCP specification
+- [Model Context Protocol](https://modelcontextprotocol.io/) - Official MCP specification
 - [MCP SDK](https://github.com/modelcontextprotocol/typescript-sdk) - TypeScript SDK for MCP
-- [mcp-proxy](https://github.com/punkpeye/mcp-proxy) - Proxy for exposing stdio MCP servers via HTTP/SSE 
+- [Instantly.ai](https://instantly.ai/) - Email marketing automation platform
+
+## 📈 Changelog
+
+### v2.0.0 - Major Expansion (Latest)
+- **Expanded from 22 to 49 tools** (123% increase!)
+- Added complete email workflow management
+- Added advanced analytics and reporting
+- Added subsequence automation tools
+- Added comprehensive lead management
+- Enhanced campaign control capabilities
+- Improved error handling and validation
+
+### v1.0.0 - Initial Release
+- Basic MCP implementation with core tools
+- SSE support for real-time communication
+- Railway deployment configuration 
